@@ -19,7 +19,8 @@ var log = new LoggerConfiguration()
       50,
       TimeSpan.FromSeconds(30),
       new ColumnOptions{
-         RemoveStandardColumns = new List<string>{"level","message"}
+         RemoveStandardColumns = new List<string>{"level","message"},
+         OrderBy = new List<string> { "timestamp", "source"}
       },
       new List<AdditionalColumn>
       {
@@ -45,7 +46,8 @@ var log = new LoggerConfiguration()
           "batchPostingLimit": 50,
           "period": "00:00:30",
           "columnOptions": { 
-            "RemoveStandardColumns": ["level","message"]
+            "RemoveStandardColumns": ["level","message"],
+            "OrderBy": ["timestamp","source"]
             },
           "additionalColumns": [{
               "Name": "source",

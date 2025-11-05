@@ -24,7 +24,7 @@ namespace Serilog.Sinks.ClickHouse.Provider
                     {string.Join(", ", mapping.Select(m => $"{m.Name} {m.Type}"))}
                 )
                 ENGINE = MergeTree()
-                ORDER BY timestamp";
+                {TableOrderByHelper.GetScript(columnOptions?.OrderBy)}";
 
             Insert = $@"INSERT INTO {name} (
                     {string.Join(", ", mapping.Select(m => $"{m.Name}"))}

@@ -20,7 +20,8 @@ var log = new LoggerConfiguration()
       TimeSpan.FromSeconds(30),
       new ColumnOptions{
          RemoveStandardColumns = new List<string>{"level","message"},
-         OrderBy = new List<string> { "timestamp", "source"}
+         OrderBy = new List<string> { "timestamp", "source"},
+         PartitionBy = new List<string> { "toDate(timestamp)"}
       },
       new List<AdditionalColumn>
       {
@@ -47,7 +48,8 @@ var log = new LoggerConfiguration()
           "period": "00:00:30",
           "columnOptions": { 
             "RemoveStandardColumns": ["level","message"],
-            "OrderBy": ["timestamp","source"]
+            "OrderBy": ["timestamp","source"],
+            "PartitionBy": ["toDate(timestamp)"]
             },
           "additionalColumns": [{
               "Name": "source",

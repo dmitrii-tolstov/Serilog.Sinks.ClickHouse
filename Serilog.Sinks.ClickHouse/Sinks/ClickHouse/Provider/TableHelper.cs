@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Serilog.Sinks.ClickHouse.Provider
@@ -20,12 +21,21 @@ namespace Serilog.Sinks.ClickHouse.Provider
             if (additionalColumns != null)
                 mapping = mapping.Union(additionalColumns.Select(c => new ColumnAttribute { Name = c.Name, Type = c.Type })).ToList();
 
+            if (!TimeToLiveHelper.ValidateOptions(columnOptions?.TimeToLive, mapping, "TimeToLive."))
+            {
+                throw new ArgumentException("Wrong section: TimeToLive");
+            }
+
             Create = $@"CREATE TABLE IF NOT EXISTS {name} (
-                    {string.Join(", ", mapping.Select(m => $"{m.Name} {m.Type}"))}
+                    {string.Join(", ", mapping.Select(m => $"{m.Name} {m.Type} {
+                     TimeToLiveHelper.GetScript((columnOptions?.TimeToLive?.Fields.ContainsKey(m.Name) == true)
+                                               ? columnOptions?.TimeToLive?.Fields[m.Name] : null)}"))}
                 )
                 ENGINE = MergeTree()
                 {TableOrderByHelper.GetScript(columnOptions?.OrderBy)}
-                {TablePartitionByHelper.GetScript(columnOptions?.PartitionBy)}";
+                {TablePartitionByHelper.GetScript(columnOptions?.PartitionBy)}
+                {TimeToLiveHelper.GetScript(columnOptions?.TimeToLive?.Table)}
+                ";
 
             Insert = $@"INSERT INTO {name} (
                     {string.Join(", ", mapping.Select(m => $"{m.Name}"))}

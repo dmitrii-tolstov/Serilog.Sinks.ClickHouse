@@ -17,5 +17,10 @@ namespace Serilog.Sinks.ClickHouse.Provider
         /// IF null - timestamp. IF not null and empty - tuple().
         /// </summary>
         public IEnumerable<string> PartitionBy { get; set; }
+
+        /// <summary>
+        /// Time-to-live options for table or columns
+        /// </summary>
+        public TimeToLiveOptions TimeToLive { get; set; }
     }
 }

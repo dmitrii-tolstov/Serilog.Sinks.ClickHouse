@@ -21,11 +21,35 @@ var log = new LoggerConfiguration()
       new ColumnOptions{
          RemoveStandardColumns = new List<string>{"level","message"},
          OrderBy = new List<string> { "timestamp", "source"},
-         PartitionBy = new List<string> { "toDate(timestamp)"}
+         PartitionBy = new List<string> { "toDate(timestamp)"},
+         TimeToLive = new TimeToLiveOptions {
+          Table = new TimeToLiveAttribute { 
+            DateTimeColumnName = "timestamp",
+            IntervalValue = 12,
+            IntervalName = "MONTH"
+          },
+          Fields = new Dictionary<string,TimeToLiveAttribute> {
+            { "source", 
+              new TimeToLiveAttribute { 
+                DateTimeColumnName = "timestamp",
+                IntervalValue = 3,
+                IntervalName = "WEEK"
+              }
+            },
+            { "callstack", 
+              new TimeToLiveAttribute { 
+                DateTimeColumnName = "timestamp",
+                IntervalValue = 3,
+                IntervalName = "WEEK"
+              }
+            }
+          }
+         }
       },
       new List<AdditionalColumn>
       {
           new AdditionalColumn { Name = "source", Type = "String" },
+          new AdditionalColumn { Name = "callstack", Type = "String" },
           new AdditionalColumn { Name = "user", Type = "String" }
       },
       restrictedToMinimumLevel: LogEventLevel.Information
@@ -49,10 +73,33 @@ var log = new LoggerConfiguration()
           "columnOptions": { 
             "RemoveStandardColumns": ["level","message"],
             "OrderBy": ["timestamp","source"],
-            "PartitionBy": ["toDate(timestamp)"]
-            },
+            "PartitionBy": ["toDate(timestamp)"],
+            "TimeToLive": {
+              "Table": {
+                  "DateTimeColumnName": "timestamp",
+                  "IntervalValue": 12,
+                  "IntervalName": "MONTH"
+              },
+              "Fields": {
+                  "source": {
+                      "DateTimeColumnName": "timestamp",
+                      "IntervalValue": 3,
+                      "IntervalName": "WEEK"
+                  },
+                  "callstack": {
+                      "DateTimeColumnName": "timestamp",
+                      "IntervalValue": 3,
+                      "IntervalName": "WEEK"
+                  }
+              }
+            }
+          },
           "additionalColumns": [{
               "Name": "source",
+              "Type": "String"
+            },
+            {
+              "Name": "callstack",
               "Type": "String"
             },
             {

@@ -1,4 +1,4 @@
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     /// <summary>
     /// Attribute to determine time-to-live for column or table, for example "TTL timestamp + INTERVAL 1 MONTH"

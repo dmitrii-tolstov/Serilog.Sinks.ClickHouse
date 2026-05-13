@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     class TableHelper<T>
     {

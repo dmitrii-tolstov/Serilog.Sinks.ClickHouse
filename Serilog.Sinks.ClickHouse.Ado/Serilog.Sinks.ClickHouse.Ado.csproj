@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFrameworks>net462;net6.0;net8.0;netstandard2.1</TargetFrameworks>
-	<Version>1.0.2</Version>
+	<Version>1.0.0</Version>
     <Authors>dmitrii-tolstov</Authors>
     <Description>Write serilog events to clickhouse database.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/dmitrii-tolstov/Serilog.Sinks.ClickHouse</RepositoryUrl>
+    <RepositoryUrl>https://github.com/dmitrii-tolstov/Serilog.Sinks.ClickHouse.Ado</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>serilog, clickhouse</PackageTags>
-    <PackageProjectUrl>https://github.com/dmitrii-tolstov/Serilog.Sinks.ClickHouse</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/dmitrii-tolstov/Serilog.Sinks.ClickHouse.Ado</PackageProjectUrl>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-    <Copyright>Copyright © Dmitry Tolstov 2026</Copyright>
+    <Copyright>Copyright © Dmitrii Tolstov 2026</Copyright>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 

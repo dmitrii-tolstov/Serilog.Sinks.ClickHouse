@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using ClickHouse.Ado;
 using Serilog.Debugging;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     class ClickHouseProvider<TColumnFormatter>
     {

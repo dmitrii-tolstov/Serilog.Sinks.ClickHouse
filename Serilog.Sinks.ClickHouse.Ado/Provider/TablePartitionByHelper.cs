@@ -3,37 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using Serilog.Debugging;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     /// <summary>
-    /// Generation ORDER BY script
+    /// Generation PARTITION BY script
     /// </summary>
-    class TableOrderByHelper
+    class TablePartitionByHelper
     {
         protected IEnumerable<string> fieldNameList;
         protected int fieldCount;
 
-        protected TableOrderByHelper(IEnumerable<string> orderByFieldList)
+        protected TablePartitionByHelper(IEnumerable<string> partitionByFieldList)
         {
-            fieldNameList = orderByFieldList;
+            fieldNameList = partitionByFieldList;
             fieldCount = fieldNameList.Count();
         }
 
         protected string GetScriptInternal()
         {
-            string script = "ORDER BY ";
+            string script = "PARTITION BY ";
 
-            // Default ORDER BY
-            if (fieldNameList is null)
+            // Default PARTITION BY
+            if (fieldNameList is null
+             || fieldCount == 0)
             {
-                return script + "timestamp";
-            }
-
-            // Without ORDER BY
-            if (fieldCount == 0
-             || (fieldCount == 1 && fieldNameList.First().Equals("tuple()",StringComparison.OrdinalIgnoreCase)))
-            {
-                return script += "tuple()";
+                return "";
             }
 
             if (ValidateFieldNameList())
@@ -42,7 +36,7 @@ namespace Serilog.Sinks.ClickHouse.Provider
             }
             else
             {
-                throw new ArgumentException("Wrong section: OrderBy");
+                throw new ArgumentException("Wrong section: PartitionBy");
             }
 
             return script;
@@ -66,7 +60,7 @@ namespace Serilog.Sinks.ClickHouse.Provider
 
             if (fieldName.Trim() == "")
             {
-                SelfLog.WriteLine($"OrderBy: Wrong field name: {fieldName}");
+                SelfLog.WriteLine($"PartitionBy: Wrong field name: {fieldName}");
                 validateResult = false;
             }
 
@@ -74,13 +68,13 @@ namespace Serilog.Sinks.ClickHouse.Provider
         }
 
         /// <summary>
-        /// Generate ORDER BY script
+        /// Generate PARTITION BY script
         /// </summary>
-        /// <param name="orderByFieldList">Field collection</param>
+        /// <param name="partitionByFieldList">Field collection</param>
         /// <returns>script</returns>
-        public static string GetScript(IEnumerable<string> orderByFieldList)
+        public static string GetScript(IEnumerable<string> partitionByFieldList)
         {
-            return new TableOrderByHelper(orderByFieldList).GetScriptInternal();
+            return new TablePartitionByHelper(partitionByFieldList).GetScriptInternal();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Serilog.Sinks.ClickHouse.Provider
+﻿namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     public class AdditionalColumn
     {

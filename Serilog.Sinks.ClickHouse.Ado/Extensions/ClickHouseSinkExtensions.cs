@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Serilog.Configuration;
 using Serilog.Events;
-using Serilog.Sinks.ClickHouse.Provider;
+using Serilog.Sinks.ClickHouse.Ado.Provider;
 
-namespace Serilog.Sinks.ClickHouse.Extensions
+namespace Serilog.Sinks.ClickHouse.Ado.Extensions
 {
     public static class ClickHouseSinkExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     static class ColumnsHelper
     {

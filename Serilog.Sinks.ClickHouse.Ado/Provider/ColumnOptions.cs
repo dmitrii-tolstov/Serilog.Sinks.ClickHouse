@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     public class ColumnOptions
     {

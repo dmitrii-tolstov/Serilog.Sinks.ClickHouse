@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Debugging;
-using Serilog.Sinks.ClickHouse.Provider;
+using Serilog.Sinks.ClickHouse.Ado.Provider;
 
-namespace Serilog.Sinks.ClickHouse
+namespace Serilog.Sinks.ClickHouse.Ado
 {
     public class ClickHouseSink : IBatchedLogEventSink
     {

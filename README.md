@@ -1,6 +1,6 @@
 # Install:
 ```
-dotnet add package Serilog.Sinks.ClickHouse --version 1.0.2
+dotnet add package Serilog.Sinks.ClickHouse.Ado --version 1.0.0
 ```
 
 # Default fields:

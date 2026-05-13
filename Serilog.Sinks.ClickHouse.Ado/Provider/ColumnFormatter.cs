@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Serilog.Events;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     class ColumnFormatter : IEnumerable
     {

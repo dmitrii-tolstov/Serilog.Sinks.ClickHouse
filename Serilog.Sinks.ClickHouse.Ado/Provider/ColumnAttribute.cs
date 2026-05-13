@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Serilog.Sinks.ClickHouse.Provider
+namespace Serilog.Sinks.ClickHouse.Ado.Provider
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ColumnAttribute : Attribute

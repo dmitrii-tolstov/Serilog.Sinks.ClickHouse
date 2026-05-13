@@ -18,8 +18,8 @@ namespace Serilog.Sinks.ClickHouse.Provider
 
         [Column(Name = "timestamp", Type = "DateTime")]
         public DateTime Timestamp { get => _message.Timestamp.UtcDateTime; }
-        [Column(Name = "level", Type = "Int")]
-        public LogEventLevel Level { get => _message.Level; }
+        [Column(Name = "level", Type = "String")]
+        public string Level { get => _message.Level.ToString(); }
         [Column(Name = "message", Type = "String")]
         public string Message { get => _message.RenderMessage(_formatProvider); }
         
@@ -64,27 +64,28 @@ namespace Serilog.Sinks.ClickHouse.Provider
 
         private object Default(string type)
         {
-            return type switch
+            switch (type)
             {
-                "Boolean" => default(bool),
-                "UInt" => default(uint),
-                "UInt8" => default(byte),
-                "UInt16" => default(UInt16),
-                "UInt32" => default(UInt32),
-                "UInt64" => default(UInt64),
-                "Int" => default(int),
-                "Int8" => default(sbyte),
-                "Int16" => default(Int16),
-                "Int32" => default(Int32),
-                "Int64" => default(Int64),
-                "Float32" => default(float),
-                "Float64" => default(double),
-                "Single" => default(float),
-                "Double" => default(double),
-                "DateTime" => default(DateTime),
-                "String" => default(String),
-                _ => throw new NotSupportedException()
-            };
+                case "Boolean": return default(bool);
+                case "UInt": return default(uint);
+                case "UInt8": return default(byte);
+                case "UInt16": return default(UInt16);
+                case "UInt32": return default(UInt32);
+                case "UInt64": return default(UInt64);
+                case "Int": return default(int);
+                case "Int8": return default(sbyte);
+                case "Int16": return default(Int16);
+                case "Int32": return default(Int32);
+                case "Int64": return default(Int64);
+                case "Float32": return default(float);
+                case "Float64": return default(double);
+                case "Single": return default(float);
+                case "Double": return default(double);
+                case "DateTime": return default(DateTime);
+                case "String": return default(string);
+                default: throw new NotSupportedException();
+            }
         }
+
     }
 }

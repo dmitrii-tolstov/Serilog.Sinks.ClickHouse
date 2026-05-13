@@ -32,7 +32,7 @@ namespace Serilog.Sinks.ClickHouse.Provider
             {
                 try
                 {
-                    Execute(_table.Create);
+                    _ = Execute(_table.Create);
                 }
                 catch (Exception ex)
                 {
@@ -46,28 +46,36 @@ namespace Serilog.Sinks.ClickHouse.Provider
         {
             if (buff.Any())
             {
-                using var connection = new ClickHouseConnection(new ClickHouseConnectionSettings(_connectionString));
-                await connection.OpenAsync();
-
-                using var cmd = connection.CreateCommand();
-                cmd.CommandText = _table.Insert;
-                cmd.Parameters.Add(new ClickHouseParameter
+                using (var connection = new ClickHouseConnection(new ClickHouseConnectionSettings(_connectionString)))
                 {
-                    ParameterName = "bulk",
-                    Value = buff
-                });
-                await cmd.ExecuteNonQueryAsync();
+                    await connection.OpenAsync();
+
+                    using (var cmd = connection.CreateCommand())
+                    {
+                        cmd.CommandText = _table.Insert;
+                        cmd.Parameters.Add(new ClickHouseParameter
+                        {
+                            ParameterName = "bulk",
+                            Value = buff
+                        });
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
             }
         }
 
-        public void Execute(string command)
+        public async Task Execute(string command)
         {
-            using var connection = new ClickHouseConnection(new ClickHouseConnectionSettings(_connectionString));
-            connection.Open();
+            using (var connection = new ClickHouseConnection(new ClickHouseConnectionSettings(_connectionString)))
+            {
+                await connection.OpenAsync();
 
-            using var cmd = connection.CreateCommand();
-            cmd.CommandText = command;
-            cmd.ExecuteNonQuery();
+                using (var cmd = connection.CreateCommand())
+                {
+                    cmd.CommandText = command;
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
         }
     }
 }

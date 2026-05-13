@@ -1,11 +1,11 @@
 # Install:
 ```
-dotnet add package Serilog.Sinks.ClickHouse --version 1.0.1
+dotnet add package Serilog.Sinks.ClickHouse --version 1.0.2
 ```
 
 # Default fields:
 1. timestamp (DateTime)
-2. level (Int)
+2. level (String)
 3. message (String)
 
 # Usage:

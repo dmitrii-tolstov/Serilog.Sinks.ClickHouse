@@ -27,9 +27,7 @@ namespace Serilog.Sinks.ClickHouse.Provider
             }
 
             Create = $@"CREATE TABLE IF NOT EXISTS {name} (
-                    {string.Join(", ", mapping.Select(m => $"{m.Name} {m.Type} {
-                     TimeToLiveHelper.GetScript((columnOptions?.TimeToLive?.Fields.ContainsKey(m.Name) == true)
-                                               ? columnOptions?.TimeToLive?.Fields[m.Name] : null)}"))}
+                    {string.Join(", ", mapping.Select(m => $"{m.Name} {m.Type} { TimeToLiveHelper.GetScript((columnOptions?.TimeToLive?.Fields.ContainsKey(m.Name) == true) ? columnOptions?.TimeToLive?.Fields[m.Name] : null)}"))}
                 )
                 ENGINE = MergeTree()
                 {TableOrderByHelper.GetScript(columnOptions?.OrderBy)}

@@ -10,7 +10,11 @@ namespace Serilog.Sinks.ClickHouse.Provider
     /// </summary>
     public class TimeToLiveHelper
     {
-        protected static readonly List<string> AvailableIntervalNames = ["YEAR", "QUARTER", "MONTH", "WEEK", "DAY", "HOUR", "MINUTE", "SECOND", "MILLISECOND", "MICROSECOND", "NANOSECOND"];
+        protected static readonly List<string> AvailableIntervalNames = new List<string>
+        {
+            "YEAR", "QUARTER", "MONTH", "WEEK", "DAY", "HOUR",
+            "MINUTE", "SECOND", "MILLISECOND", "MICROSECOND", "NANOSECOND"
+        };
 
         /// <summary>
         /// Get TTL script for TimeToLiveAttribute
